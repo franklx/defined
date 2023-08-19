@@ -1,0 +1,15 @@
+[package]
+name = "undefined"
+version = "0.1.0"
+edition = "2021"
+description = "A Custom Option Enum with Undefined value."
+license = "MIT OR Apache-2.0"
+
+[features]
+serde = []
+juniper = []
+
+[dependencies]
+diesel = { version = "2.1.0", features = [] }
+juniper = { version = "0.15.11" }
+serde = "1.0"
