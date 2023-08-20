@@ -85,6 +85,7 @@ impl<T> Optional<T> {
     /// # Examples
     ///
     /// ```
+    /// use undefined::Optional;
     /// let x: Optional<u32> = Optional::Def(1);
     /// assert_eq!(x.is_def(), true);
     ///
@@ -105,6 +106,7 @@ impl<T> Optional<T> {
     /// # Examples
     ///
     /// ```
+    /// use undefined::Optional;
     /// let x: Optional<u32> = Optional::Def(2);
     /// assert_eq!(x.is_def_and(|x| x > 1), true);
     ///
@@ -131,14 +133,15 @@ impl<T> Optional<T> {
     /// # Examples
     ///
     /// ```
+    /// use undefined::Optional;
     /// let x: Optional<u32> = Optional::Def(1);
-    /// assert_eq!(x.is_def(), false);
+    /// assert_eq!(x.is_null(), false);
     ///
     /// let x: Optional<u32> = Optional::Undef;
-    /// assert_eq!(x.is_def(), false);
+    /// assert_eq!(x.is_null(), false);
     ///
     /// let x: Optional<u32> = Optional::Null;
-    /// assert_eq!(x.is_def(), true);
+    /// assert_eq!(x.is_null(), true);
     /// ```
     #[must_use = "if you intended to assert that this doesn't have a value, consider \
                   `.and_then(|_| panic!(\"`Optional` had a value when expected `Optional::Null`\"))` instead"]
@@ -284,6 +287,7 @@ impl<T> Optional<T> {
     /// # Examples
     ///
     /// ```
+    /// use undefined::Optional;
     /// let x: Optional<u32> = Optional::Def(1);
     /// assert_eq!(x.def_or(3).unwrap(), 1);
     ///
@@ -299,6 +303,33 @@ impl<T> Optional<T> {
             Optional::Def(val) => Option::Some(val),
             Optional::Null => Option::None,
             Optional::Undef => Option::Some(default),
+        }
+    }
+    /// Returns `default` if the optional is a [`Optional::Undef`] value
+    /// Otherwise, Option<Self>
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use undefined::Optional;
+    /// let x: Optional<u32> = Optional::Def(1);
+    /// assert_eq!(x.map_def_or(Option::None, |x| x).unwrap(), 1);
+    ///
+    /// let x: Optional<u32> = Optional::Undef;
+    /// assert_eq!(x.map_def_or(Option::Some(0), |x| x).unwrap(), 0);
+    ///
+    /// let x: Optional<u32> = Optional::Null;
+    /// assert_eq!(x.map_def_or(Option::Some(0), |x| x), Option::None);
+    /// ```
+    #[inline]
+    pub fn map_def_or<U, F>(self, default: U, f: F) -> U
+    where
+        F: FnOnce(Option<T>) -> U,
+    {
+        match self {
+            Optional::Def(val) => f(Option::Some(val)),
+            Optional::Null => f(Option::None),
+            _ => default,
         }
     }
 }
