@@ -1,9 +1,8 @@
 //! A Custom Option Enum with Undefined
 //!
-//! `Optional` is a alternative `Option` enum value with [`Optional::Undef`] value.
-//! [`Optional::Def`] is defined, and not-null
-//! [`Optional::Null`] is defined, but Null
-//! [`Optional::Undef`] is undefined
-mod optional;
-pub use optional::Optional;
+//! `Defined` is a alternative `Option` enum value with [`Defined::Undef`] value.
+//! [`Defined::Def`] is defined
+//! [`Defined::Undef`] is undefined
+mod defined;
+pub use defined::{Defined::{self, Def, Undef}};
 pub mod integrations;

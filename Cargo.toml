@@ -1,17 +1,17 @@
 [package]
-name = "undefined"
-version = "0.1.3"
+name = "defined"
+version = "0.2.0"
 edition = "2021"
-description = "A Custom Option Enum with Undefined value."
+description = "A simpler Option type to circumvent orphan rules in sea-orm."
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/zhenhao-ma/undefined"
-documentation = "https://docs.rs/undefined/latest/undefined/"
+repository = "https://github.com/franklx/defined"
+documentation = "https://docs.rs/defined/latest/defined/"
 
 [features]
-serde = []
-juniper = []
+default = ["serde", "sea-query"]
+serde = ["dep:serde"]
+sea-query = ["dep:sea-query"]
 
 [dependencies]
-diesel = { version = "2.1.0", features = [] }
-juniper = { version = "0.15.11" }
-serde = "1.0"
+serde = { version = "1", optional = true }
+sea-query = { version = "0.30", optional = true }

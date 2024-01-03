@@ -1,20 +1,20 @@
-use crate::optional::Optional;
+use crate::defined::Defined;
 use serde::{de::Error, de::Visitor, Deserialize, Deserializer, Serialize, Serializer};
 use std::fmt;
 use std::marker::PhantomData;
 
-struct OptionalVisitor<T> {
+struct DefinedVisitor<T> {
     marker: PhantomData<T>,
 }
 
-impl<'de, T> Visitor<'de> for OptionalVisitor<T>
+impl<'de, T> Visitor<'de> for DefinedVisitor<T>
 where
     T: Deserialize<'de>,
 {
-    type Value = Optional<T>;
+    type Value = Defined<T>;
 
     fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
-        formatter.write_str("optional")
+        formatter.write_str("defined")
     }
 
     #[inline]
@@ -22,7 +22,7 @@ where
     where
         E: Error,
     {
-        Ok(Optional::Null)
+        Ok(Defined::Undef)
     }
 
     #[inline]
@@ -30,7 +30,7 @@ where
     where
         E: Error,
     {
-        Ok(Optional::Null)
+        Ok(Defined::Undef)
     }
 
     #[inline]
@@ -38,21 +38,11 @@ where
     where
         D: Deserializer<'de>,
     {
-        T::deserialize(deserializer).map(Optional::Def)
-    }
-
-    fn __private_visit_untagged_option<D>(self, deserializer: D) -> Result<Self::Value, ()>
-    where
-        D: Deserializer<'de>,
-    {
-        match T::deserialize(deserializer).ok() {
-            Some(val) => Ok(Optional::Def(val)),
-            None => Ok(Optional::Null),
-        }
+        T::deserialize(deserializer).map(Defined::Def)
     }
 }
 
-impl<'de, T> Deserialize<'de> for Optional<T>
+impl<'de, T> Deserialize<'de> for Defined<T>
 where
     T: Deserialize<'de>,
 {
@@ -60,13 +50,13 @@ where
     where
         D: Deserializer<'de>,
     {
-        deserializer.deserialize_option(OptionalVisitor {
+        deserializer.deserialize_option(DefinedVisitor {
             marker: PhantomData,
         })
     }
 }
 
-impl<T> Serialize for Optional<T>
+impl<T> Serialize for Defined<T>
 where
     T: Serialize,
 {
@@ -76,7 +66,7 @@ where
         S: Serializer,
     {
         match *self {
-            Optional::Def(ref value) => serializer.serialize_some(value),
+            Defined::Def(ref value) => serializer.serialize_some(value),
             _ => serializer.serialize_none(),
         }
     }
