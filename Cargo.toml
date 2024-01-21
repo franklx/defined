@@ -1,6 +1,6 @@
 [package]
 name = "defined"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2021"
 description = "A simpler Option type to circumvent orphan rules in sea-orm."
 license = "MIT OR Apache-2.0"
@@ -8,13 +8,15 @@ repository = "https://github.com/franklx/defined"
 documentation = "https://docs.rs/defined/latest/defined/"
 
 [features]
-default = ["schemars", "serde", "sea-query"]
+default = ["schemars", "serde", "sea-query", "oasgen"]
+oasgen = ["dep:oasgen"]
 schemars = ["dep:schemars", "dep:serde_json"]
-serde = ["dep:serde"]
 sea-query = ["dep:sea-query"]
+serde = ["dep:serde"]
 
 [dependencies]
-serde = { version = "1", optional = true }
+oasgen = { version = "0.18", optional = true }
 schemars = { version = "0.8", optional = true }
 sea-query = { version = "0.30", optional = true }
 serde_json = { version = "1", optional = true }
+serde = { version = "1", optional = true }
