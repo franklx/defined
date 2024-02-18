@@ -1,6 +1,6 @@
 [package]
 name = "defined"
-version = "0.2.3"
+version = "0.2.4"
 edition = "2021"
 description = "A simpler Option type to circumvent orphan rules in sea-orm."
 license = "MIT OR Apache-2.0"
@@ -17,6 +17,6 @@ serde = ["dep:serde"]
 [dependencies]
 oasgen = { version = "0.20", optional = true }
 schemars = { version = "0.8", optional = true }
-sea-query = { version = "0.30", optional = true }
+sea-query = { version = "0.31.0-rc.3", optional = true }
 serde_json = { version = "1", optional = true }
 serde = { version = "1", optional = true }
