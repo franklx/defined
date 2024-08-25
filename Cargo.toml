@@ -7,6 +7,8 @@ license = "MIT OR Apache-2.0"
 repository = "https://github.com/franklx/defined"
 documentation = "https://docs.rs/defined/latest/defined/"
 
+publish = ["elleci", "crates-io"]
+
 [features]
 default = ["schemars", "serde", "sea-query", "oasgen"]
 oasgen = ["dep:oasgen"]
