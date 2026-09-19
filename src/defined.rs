@@ -3,7 +3,9 @@ use std::panic;
 /// A Custom Option Enum with Undefined [`Defined::Undef`]
 /// Works with Juniper and serde
 #[derive(Copy, PartialEq, PartialOrd, Eq, Ord, Debug, Hash)]
+#[derive(Default)]
 pub enum Defined<T> {
+    #[default]
     Undef,
     Def(T),
 }
@@ -26,12 +28,6 @@ where
             (Defined::Def(to), Defined::Def(from)) => to.clone_from(from),
             (to, from) => *to = from.clone(),
         }
-    }
-}
-
-impl<T> Default for Defined<T> {
-    fn default() -> Self {
-        Self::Undef
     }
 }
 

@@ -9,3 +9,6 @@ pub mod sea;
 
 #[cfg(feature = "serde")]
 pub mod serde;
+
+#[cfg(feature = "ts-rs")]
+pub mod ts_rs;

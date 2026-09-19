@@ -43,12 +43,11 @@ pub(crate) fn allow_null(generator: &mut SchemaGenerator, schema: &mut Schema) {
                             array.push(null);
                         }
                     }
-                    Value::String(string) => {
-                        if string != "null" {
+                    Value::String(string)
+                        if string != "null" => {
                             let current_type = core::mem::take(string).into();
                             *instance_type = Value::Array(vec![current_type, "null".into()]);
                         }
-                    }
                     _ => {}
                 }
             }
@@ -57,11 +56,10 @@ pub(crate) fn allow_null(generator: &mut SchemaGenerator, schema: &mut Schema) {
                 if !c.is_null() {
                     obj.insert("enum".to_string(), Value::Array(vec![c, Value::Null]));
                 }
-            } else if let Some(Value::Array(e)) = obj.get_mut("enum") {
-                if !e.contains(&Value::Null) {
+            } else if let Some(Value::Array(e)) = obj.get_mut("enum")
+                && !e.contains(&Value::Null) {
                     e.push(Value::Null);
                 }
-            }
         }
         None => {
             *schema = <()>::json_schema(generator);
