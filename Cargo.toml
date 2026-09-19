@@ -1,6 +1,6 @@
 [package]
 name = "defined"
-version = "0.5.1"
+version = "0.5.2"
 edition = "2024"
 description = "A simpler Option type to circumvent orphan rules in sea-orm."
 license = "MIT OR Apache-2.0"
@@ -25,4 +25,4 @@ schemars = { version = "1", optional = true }
 sea-query = { version = "1", optional = true }
 serde_json = { version = "1", optional = true }
 serde = { version = "1", optional = true }
-ts-rs = { version = "12", optional = true }
+ts-rs = { registry = "elleci", version = "12", optional = true }

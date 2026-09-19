@@ -4,8 +4,7 @@ use crate::defined::Defined;
 
 impl<T: TS> TS for Defined<T> {
     type WithoutGenerics = Self;
-    type OptionInnerType = T;
-    const IS_OPTION: bool = true;
+    type OptionInnerType = Self;
 
     fn name(cfg: &Config) -> String {
         format!("{} | null", T::name(cfg))
