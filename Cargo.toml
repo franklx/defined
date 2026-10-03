@@ -26,5 +26,5 @@ schemars = { version = "1", optional = true }
 sea-query = { version = "1", optional = true }
 serde_json = { version = "1", optional = true }
 serde = { version = "1", optional = true }
-specta = { registry = "elleci", version = "1", optional = true }
-ts-rs = { registry = "elleci", version = "12", optional = true }
+specta = { version = "1", optional = true }
+ts-rs = { version = "12", optional = true }
