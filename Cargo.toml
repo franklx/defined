@@ -1,6 +1,6 @@
 [package]
 name = "defined"
-version = "0.5.2"
+version = "0.5.3"
 edition = "2024"
 description = "A simpler Option type to circumvent orphan rules in sea-orm."
 license = "MIT OR Apache-2.0"
@@ -11,11 +11,12 @@ publish = ["elleci", "crates-io"]
 [workspace]
 
 [features]
-default = ["schemars", "serde", "sea-query", "oasgen", "ts-rs"]
+default = ["schemars", "serde", "sea-query", "oasgen", "specta", "ts-rs"]
 oasgen = ["dep:oasgen"]
 schemars = ["dep:schemars", "dep:serde_json"]
 sea-query = ["dep:sea-query"]
 serde = ["dep:serde"]
+specta = ["dep:specta"]
 ts-rs = ["dep:ts-rs"]
 panic_immediate_abort = []
 
@@ -25,4 +26,5 @@ schemars = { version = "1", optional = true }
 sea-query = { version = "1", optional = true }
 serde_json = { version = "1", optional = true }
 serde = { version = "1", optional = true }
+specta = { registry = "elleci", version = "1", optional = true }
 ts-rs = { registry = "elleci", version = "12", optional = true }

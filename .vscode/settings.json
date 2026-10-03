@@ -4,6 +4,7 @@
     ],
     "rust-analyzer.cargo.features": [
         "schemars",
-        "oasgen"
+        "oasgen",
+        "specta"
     ]
 }

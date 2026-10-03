@@ -15,3 +15,5 @@ Cargo.lock
 
 # Remove macos files
 .DS_Store
+
+.vscode
